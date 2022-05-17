@@ -67,7 +67,7 @@ const Home = () => {
           handleClick={handleClick}
           handleDisplayRegion={handleDisplayRegion}
         />
-        <div className="mx-auto mb-8 grid w-2/3 place-items-center gap-12 lg:w-full lg:grid-cols-4 lg:px-12">
+        <div className="mx-auto mb-8 grid w-10/12 place-items-center gap-12 lg:w-full lg:grid-cols-4 lg:px-12">
           {countries &&
             countries.map((country) => (
               <Country key={idGenerator()} props={country} />
