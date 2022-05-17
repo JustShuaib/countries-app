@@ -51,17 +51,21 @@ const Home = () => {
   }
 
   function handleDisplayRegion(e) {
-    // setCountries(countries);
+    let tempCountries = [...countries];
     const region = e.target.textContent;
-    console.log(`You clicked ${region}`);
+    if (region === "All") {
+      setFilteredCountries(tempCountries);
+      return;
+    }
     const regionCountries = [];
-    countries.forEach((country) => {
+    tempCountries.forEach((country) => {
       if (country.region === region) {
         regionCountries.push(country);
       }
-      // setCountries(regionCountries);
     });
+    setFilteredCountries(regionCountries);
   }
+
   return (
     <>
       <main>
