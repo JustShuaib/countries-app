@@ -27,12 +27,13 @@ const Details = ({ country, countries }) => {
   let borders = country.borders;
   if (borders) {
     borders = borders.map((border, index) => (
-      <li
+      <Link
+        to={`/${getBorder(border)}`}
         key={index}
-        className="w-full rounded bg-light-mode-element py-1.5 px-3 text-center shadow-md dark:bg-dark-mode-element"
+        className="rounded bg-light-mode-element py-1.5 px-3 text-center shadow-md dark:bg-dark-mode-element"
       >
-        <a href="/">{getBorder(border)}</a>
-      </li>
+        {getBorder(border)}
+      </Link>
     ));
   }
 
@@ -41,8 +42,8 @@ const Details = ({ country, countries }) => {
   }
 
   function getBorder(text) {
-    const coun = countries.find((co) => co.cioc === text);
-    return coun.name.common;
+    const coun = countries.find((co) => co.cca3 === text);
+    return coun && coun.name.common;
   }
   return (
     <>
@@ -93,7 +94,7 @@ const Details = ({ country, countries }) => {
               <h4 className="mb-4 text-lg font-bold lg:mr-4 lg:mb-0">
                 Border Countries:
               </h4>
-              <ul className="flex justify-evenly space-x-3 ">{borders}</ul>
+              <ul className="flex justify-evenly flex-wrap gap-3">{borders}</ul>
             </section>
           )}
         </div>
