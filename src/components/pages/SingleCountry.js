@@ -10,7 +10,7 @@ function SingleCountry() {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await fetch("https://restcountries.com/v3.1/all");
+        const response = await fetch("https://restcountries.com/v2/all");
         if (!response.ok) {
           throw new Error("Error, Could not fetch the data at that resource");
         }
@@ -22,16 +22,11 @@ function SingleCountry() {
       }
     }
     getData();
-    // ALL: 'https://restcountries.com/v3.1/all'
-    //  REGION :   `https://restcountries.com/v3.1/region/${region}`
-    // const { countries, isPending, error } = useFetch(
-    //   "https://restcountries.com/v3.1/all"
-    // );
   }, []);
   const param = useParams();
   const countryID = param.country;
   const presentCountry = countries.find(
-    (country) => country.name.common === countryID
+    (country) => country.name === countryID
   );
   return <Details country={presentCountry} countries={countries} />;
 }

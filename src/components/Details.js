@@ -1,28 +1,33 @@
 import { BsArrowLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
 const Details = ({ country, countries }) => {
-  // const nativeName = country.name.nativeName.spa.common;
   if (!country) return;
-  const nativeName = country.name.common;
+  const name = country.name;
+  const tld = country.topLevelDomain;
+  const capital = country.capital;
   const region = country.region;
   const subregion = country.subregion;
-  const capital = country.capital;
   const population = country.population;
+  const nativeName = country.nativeName;
   const flag = country.flags.svg;
-  const tld = country.tld;
-  const languagesObj = country.languages;
+  const language = country.languages;
   let languages = [];
-  for (let lang in languagesObj) {
-    languages.push(languagesObj[lang]);
+  for (let lang of language) {
+    languages.push(lang["name"]);
   }
   languages = languages.join(", ");
 
   const curr = country.currencies;
-  let currArr = [];
-  for (let c in curr) {
-    currArr.push(curr[c]["name"]);
+  let currencies = [];
+  for (let currency of curr) {
+    currencies.push(currency["name"]);
   }
-  currArr = currArr.join(", ");
+  currencies = currencies.join(", ");
+
+  function getBorder(text) {
+    const coun = countries.find((co) => co.alpha3Code === text);
+    return coun && coun.name;
+  }
 
   let borders = country.borders;
   if (borders) {
@@ -41,10 +46,6 @@ const Details = ({ country, countries }) => {
     return population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  function getBorder(text) {
-    const coun = countries.find((co) => co.cca3 === text);
-    return coun && coun.name.common;
-  }
   return (
     <>
       <Link
@@ -57,11 +58,9 @@ const Details = ({ country, countries }) => {
 
       <main className="grid gap-10 lg:gap-x-24 px-6 dark:text-white lg:grid-cols-2 lg:px-20">
         <img src={flag} alt="country flag" />
-        <div className="grid lg:grid-cols-2 items-start lg:grid-flow-row">
+        <div className="grid lg:grid-cols-2 items-start lg:grid-rows-2">
           <section className="mb-10 space-y-3 px-8">
-            <h2 className="mt-8 mb-6 text-xl font-bold lg:text-2xl">
-              {nativeName}
-            </h2>
+            <h2 className="mt-8 mb-6 text-xl font-bold lg:text-2xl">{name}</h2>
             <p>
               <b>Native Name:</b> <span>{nativeName}</span>
             </p>
@@ -83,7 +82,7 @@ const Details = ({ country, countries }) => {
               <b>Top Level Domain:</b> <span>{tld}</span>
             </p>
             <p>
-              <b>Currencies:</b> <span>{currArr}</span>
+              <b>Currencies:</b> <span>{currencies}</span>
             </p>
             <p>
               <b>Languages:</b> <span>{languages}</span>
@@ -94,7 +93,9 @@ const Details = ({ country, countries }) => {
               <h4 className="mb-4 text-lg font-bold lg:mr-4 lg:mb-0">
                 Border Countries:
               </h4>
-              <ul className="flex justify-evenly flex-wrap gap-3">{borders}</ul>
+              <ul className="flex justify-evenly lg:justify-start flex-wrap gap-3">
+                {borders}
+              </ul>
             </section>
           )}
         </div>
