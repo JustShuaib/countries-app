@@ -45,7 +45,6 @@ const Home = () => {
     if (value.length > 0) {
       setValue("");
       setFilteredCountries([...countries]);
-      // return;
     }
     e.preventDefault();
   }
@@ -53,17 +52,20 @@ const Home = () => {
   function handleDisplayRegion(e) {
     let tempCountries = [...countries];
     const region = e.target.textContent;
+    const el = e.target.tagName;
     if (region === "All") {
       setFilteredCountries(tempCountries);
       return;
     }
-    const regionCountries = [];
-    tempCountries.forEach((country) => {
-      if (country.region === region) {
-        regionCountries.push(country);
-      }
-    });
-    setFilteredCountries(regionCountries);
+    if (el === "BUTTON") {
+      const regionCountries = [];
+      tempCountries.forEach((country) => {
+        if (country.region === region) {
+          regionCountries.push(country);
+        }
+      });
+      setFilteredCountries(regionCountries);
+    }
   }
 
   return (
@@ -77,7 +79,7 @@ const Home = () => {
           clearSearchInput={clearSearchInput}
         />
         <div className="mx-auto mb-8 grid w-10/12 place-items-center gap-12 md:grid-cols-2 lg:w-full lg:grid-cols-4 lg:px-12">
-          {filteredCountries.length > 0 ? (
+          {filteredCountries.length > 0 && !isPending ? (
             filteredCountries.map((country) => (
               <Country key={idGenerator()} props={country} />
             ))

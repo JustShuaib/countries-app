@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdKeyboardArrowDown, MdClear } from "react-icons/md";
 
@@ -42,7 +41,6 @@ const Input = (props) => {
           <MdKeyboardArrowDown className="text-xl" />
         </button>
         <div
-          onBlur={handleFilterToggle}
           className="absolute -bottom-52 left-0 z-10 grid w-full justify-start gap-y-1 rounded-md bg-white p-4 text-left opacity-0 shadow dark:bg-dark-mode-element dark:text-white"
           id="regions"
           onClick={handleDisplayRegion}
