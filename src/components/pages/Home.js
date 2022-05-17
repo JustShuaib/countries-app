@@ -7,7 +7,6 @@ const Home = () => {
   const [isPending, setIsPending] = useState(true);
   const [countries, setCountries] = useState(null);
   const [error, setError] = useState(null);
-  // const [url, setUrl] = useState();
   useEffect(() => {
     async function getData() {
       try {
@@ -23,11 +22,6 @@ const Home = () => {
       }
     }
     getData();
-    // ALL: 'https://restcountries.com/v3.1/all'
-    //  REGION :   `https://restcountries.com/v3.1/region/${region}`
-    // const { countries, isPending, error } = useFetch(
-    //   "https://restcountries.com/v3.1/all"
-    // );
   }, []);
   function handleDisplayRegion(e) {
     setCountries(countries);
@@ -67,7 +61,7 @@ const Home = () => {
           handleClick={handleClick}
           handleDisplayRegion={handleDisplayRegion}
         />
-        <div className="mx-auto mb-8 grid w-10/12 place-items-center gap-12 lg:w-full lg:grid-cols-4 lg:px-12">
+        <div className="mx-auto mb-8 grid w-10/12 place-items-center gap-12 md:grid-cols-2 lg:w-full lg:grid-cols-4 lg:px-12">
           {countries &&
             countries.map((country) => (
               <Country key={idGenerator()} props={country} />
