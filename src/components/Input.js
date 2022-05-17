@@ -2,17 +2,19 @@ import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdKeyboardArrowDown, MdClear } from "react-icons/md";
 
-const Input = ({ handleDisplayRegion, handleClick }) => {
-  const [value, setValue] = useState("");
-
+const Input = (props) => {
+  const {
+    handleDisplayRegion,
+    handleClick,
+    clearSearchInput,
+    value,
+    handleChange,
+  } = props;
   function handleFilterToggle() {
     const regions = document.getElementById("regions");
     regions.classList.toggle("opacity-0");
   }
 
-  function handleChange(e) {
-    setValue(e.target.value);
-  }
   return (
     <div className="mx-auto my-6 w-11/12 lg:flex lg:items-center lg:justify-between">
       <form className="mb-10 flex items-center rounded-md bg-white px-3 py-2 text-light-mode-input shadow dark:bg-dark-mode-element lg:mb-0 lg:w-5/12">
@@ -27,8 +29,11 @@ const Input = ({ handleDisplayRegion, handleClick }) => {
             className="w-full px-3 py-2 outline-none  dark:bg-inherit dark:text-white dark:placeholder:text-white"
           />
         </label>
+        <button aria-label="clear search" onClick={clearSearchInput}>
+          <MdClear className="text-2xl dark:text-light-mode-element" />
+        </button>
       </form>
-      <div className="relative w-7/12 rounded bg-light-mode-element shadow transition dark:bg-dark-mode-element dark:text-white lg:w-44">
+      <div className="relative w-7/12 rounded bg-light-mode-element shadow dark:bg-dark-mode-element dark:text-white lg:w-44">
         <button
           className="flex w-full items-center justify-between rounded p-2 font-semibold md:p-4"
           onClick={handleFilterToggle}

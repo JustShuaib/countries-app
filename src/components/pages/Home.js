@@ -7,6 +7,8 @@ const Home = () => {
   const [countries, setCountries] = useState(null);
   let [filteredCountries, setFilteredCountries] = useState([]);
   const [error, setError] = useState(null);
+  const [value, setValue] = useState("");
+
   useEffect(() => {
     async function getData() {
       try {
@@ -25,6 +27,10 @@ const Home = () => {
     getData();
   }, []);
 
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
+
   function handleClick(e) {
     let tempCountries = [...countries];
     let searchCountry = e.target.value;
@@ -35,6 +41,15 @@ const Home = () => {
       setFilteredCountries(tempCountries);
     }
   }
+  function clearSearchInput(e) {
+    if (value.length > 0) {
+      setValue("");
+      setFilteredCountries([...countries]);
+      // return;
+    }
+    e.preventDefault();
+  }
+
   function handleDisplayRegion(e) {
     // setCountries(countries);
     const region = e.target.textContent;
@@ -51,8 +66,11 @@ const Home = () => {
     <>
       <main>
         <Input
+          value={value}
+          handleChange={handleChange}
           handleClick={handleClick}
           handleDisplayRegion={handleDisplayRegion}
+          clearSearchInput={clearSearchInput}
         />
         <div className="mx-auto mb-8 grid w-10/12 place-items-center gap-12 md:grid-cols-2 lg:w-full lg:grid-cols-4 lg:px-12">
           {filteredCountries.length > 0 ? (
