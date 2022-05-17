@@ -1,26 +1,15 @@
-// import { useState } from "react";
-// import { useEffect, useState } from "react";
 import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdKeyboardArrowDown } from "react-icons/md";
-// import UseFetch from "../useFetch";
 
 const Input = ({ handleDisplayRegion, handleClick }) => {
   const [value, setValue] = useState("");
+
   function handleFilterToggle() {
     const regions = document.getElementById("regions");
     regions.classList.toggle("opacity-0");
   }
-  // function handleDisplayRegion(e) {
-  //   const region = e.target.textContent;
-  //   return region;
-  // }
-  // const [continent, setContinent] = useState(handleDisplayRegion);
-  // useEffect(() => {
-  //   async function (continent){
-  //     const
-  //   }
-  // })
+
   function handleChange(e) {
     setValue(e.target.value);
   }

@@ -37,10 +37,11 @@ const Home = () => {
   }
   function handleClick(e) {
     console.log(e.key);
+    const tempCountries = [...countries];
     console.log(e.target.value);
     let searchCountry = e.target.value;
     let filteredCountries = countries.filter((country) =>
-      country.name.common.toLowerCase().includes(searchCountry.toLowerCase())
+      country.name.toLowerCase().includes(searchCountry.toLowerCase())
     );
     console.log(filteredCountries);
     // setCountries(filteredCountries);
@@ -73,7 +74,6 @@ const Home = () => {
           {error ? error : "Loading countries..."}
         </div>
       )}
-      {/* <Details /> */}
     </>
   );
 };
