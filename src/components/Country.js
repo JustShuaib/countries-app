@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
 const Country = ({ props }) => {
-  const name = props.name.common;
-  const region = props.region;
+  const name = props.name;
   const capital = props.capital;
+  const region = props.region;
   const population = props.population;
-  const flag = props.flags.png;
+  const flag = props.flags.svg;
 
   function formatPopulation(population) {
     return population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

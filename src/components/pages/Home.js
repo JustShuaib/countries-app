@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await fetch("https://restcountries.com/v3.1/all");
+        const response = await fetch("https://restcountries.com/v2/all");
         if (!response.ok) {
           throw new Error("Error, Could not fetch the data at that resource");
         }
