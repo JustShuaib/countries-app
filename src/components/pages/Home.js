@@ -2,10 +2,10 @@ import { v4 as idGenerator } from "uuid";
 import { useState, useEffect } from "react";
 import Country from "../Country";
 import Input from "../Input";
-// import useFetch from "./useFetch";
 const Home = () => {
   const [isPending, setIsPending] = useState(true);
   const [countries, setCountries] = useState(null);
+  let [filteredCountries, setFilteredCountries] = useState([]);
   const [error, setError] = useState(null);
   useEffect(() => {
     async function getData() {
@@ -16,6 +16,7 @@ const Home = () => {
         }
         const data = await response.json();
         setCountries(data);
+        setFilteredCountries(data);
         setIsPending(false);
       } catch (error) {
         setError(error.message);
@@ -23,8 +24,19 @@ const Home = () => {
     }
     getData();
   }, []);
+
+  function handleClick(e) {
+    let tempCountries = [...countries];
+    let searchCountry = e.target.value;
+    if (searchCountry.length > 0) {
+      tempCountries = tempCountries.filter((country) =>
+        country.name.toLowerCase().includes(searchCountry.toLowerCase())
+      );
+      setFilteredCountries(tempCountries);
+    }
+  }
   function handleDisplayRegion(e) {
-    setCountries(countries);
+    // setCountries(countries);
     const region = e.target.textContent;
     console.log(`You clicked ${region}`);
     const regionCountries = [];
@@ -32,28 +44,8 @@ const Home = () => {
       if (country.region === region) {
         regionCountries.push(country);
       }
-      setCountries(regionCountries);
+      // setCountries(regionCountries);
     });
-  }
-  function handleClick(e) {
-    console.log(e.key);
-    const tempCountries = [...countries];
-    console.log(e.target.value);
-    let searchCountry = e.target.value;
-    let filteredCountries = countries.filter((country) =>
-      country.name.toLowerCase().includes(searchCountry.toLowerCase())
-    );
-    console.log(filteredCountries);
-    // setCountries(filteredCountries);
-    // return (
-    /* countries.filter(
-      (country) => {
-        country.name.common.includes(e.target.value);
-      } */
-    // countries.map((country) => (
-    // <Country key={idGenerator()} props={country} />
-    // )
-    // );
   }
   return (
     <>
@@ -63,10 +55,15 @@ const Home = () => {
           handleDisplayRegion={handleDisplayRegion}
         />
         <div className="mx-auto mb-8 grid w-10/12 place-items-center gap-12 md:grid-cols-2 lg:w-full lg:grid-cols-4 lg:px-12">
-          {countries &&
-            countries.map((country) => (
+          {filteredCountries.length > 0 ? (
+            filteredCountries.map((country) => (
               <Country key={idGenerator()} props={country} />
-            ))}
+            ))
+          ) : (
+            <p className="text-center text-3xl font-bold">
+              No such country found
+            </p>
+          )}
         </div>
       </main>
       {isPending && (

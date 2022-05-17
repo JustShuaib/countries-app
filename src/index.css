@@ -6,6 +6,6 @@
 
 @layer base {
   body {
-    @apply bg-light-bg font-nunito-sans transition dark:bg-dark-mode-bg dark:text-light-mode-element;
+    @apply bg-light-bg font-nunito-sans dark:bg-dark-mode-bg dark:text-light-mode-element;
   }
 }

@@ -12,9 +12,13 @@ const Country = ({ props }) => {
   }
 
   return (
-    <div className="min-h-full cursor-pointer overflow-hidden rounded-lg bg-light-mode-element pb-2 shadow-md transition duration-500 hover:-translate-y-2 dark:bg-dark-mode-element dark:text-white">
-      <Link to={`/${name}`} flag={flag}>
-        <img src={flag} className="mx-auto lg:h-48" alt="country flag" />
+    <div className="min-h-full w-full cursor-pointer overflow-hidden rounded-lg bg-light-mode-element pb-2 shadow-md transition duration-500 hover:-translate-y-2 dark:bg-dark-mode-element dark:text-white">
+      <Link to={`/${name}`}>
+        <img
+          src={flag}
+          className="w-full object-cover lg:h-48"
+          alt="country flag"
+        />
         <section className="mt-4 mb-8 space-y-2 px-4">
           <h2 className="mb-3 text-lg font-bold">{name}</h2>
           <p>

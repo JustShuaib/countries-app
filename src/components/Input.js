@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown, MdClear } from "react-icons/md";
 
 const Input = ({ handleDisplayRegion, handleClick }) => {
   const [value, setValue] = useState("");
