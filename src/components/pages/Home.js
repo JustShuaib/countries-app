@@ -38,9 +38,11 @@ const Home = () => {
       tempCountries = tempCountries.filter((country) =>
         country.name.toLowerCase().includes(searchCountry.toLowerCase())
       );
+      if (tempCountries.length === 0) return;
       setFilteredCountries(tempCountries);
     }
   }
+
   function clearSearchInput(e) {
     if (value.length > 0) {
       setValue("");
@@ -79,15 +81,9 @@ const Home = () => {
           clearSearchInput={clearSearchInput}
         />
         <div className="mx-auto mb-8 grid w-10/12 place-items-center gap-12 md:grid-cols-2 lg:w-full lg:grid-cols-4 lg:px-12">
-          {filteredCountries.length > 0 && !isPending ? (
-            filteredCountries.map((country) => (
-              <Country key={idGenerator()} props={country} />
-            ))
-          ) : (
-            <p className="text-center text-3xl font-bold">
-              No such country found
-            </p>
-          )}
+          {filteredCountries.map((country) => (
+            <Country key={idGenerator()} props={country} />
+          ))}
         </div>
       </main>
       {isPending && (
