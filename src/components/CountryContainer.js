@@ -25,7 +25,7 @@ function CountryContainer({ filteredCountries, isPending, error }) {
   return (
     <div className="mx-auto mb-8 grid w-10/12 place-items-center gap-12 md:grid-cols-2 lg:w-full lg:grid-cols-4 lg:px-12">
       {filteredCountries.map((country) => (
-        <Country key={idGenerator()} props={country} />
+        <Country key={idGenerator()} country={country} />
       ))}
     </div>
   );

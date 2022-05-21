@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
 
-const Country = ({ props }) => {
-  const name = props.name;
-  const capital = props.capital;
-  const region = props.region;
-  const population = props.population;
-  const flag = props.flags.svg;
+const Country = ({ country }) => {
+  const { name, capital, region, population, flags } = country;
 
   function formatPopulation(population) {
     return population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -15,7 +11,7 @@ const Country = ({ props }) => {
     <div className="min-h-full w-full cursor-pointer overflow-hidden rounded-lg bg-light-mode-element pb-2 shadow-md hover:-translate-y-2 dark:bg-dark-mode-element dark:text-white">
       <Link to={`/${name}`}>
         <img
-          src={flag}
+          src={flags.svg}
           className="w-full object-cover lg:h-48"
           alt="country flag"
         />
