@@ -14,9 +14,10 @@ module.exports = {
       fontFamily: {
         "nunito-sans": "Nunito Sans, sans-serif",
       },
-      // boxShadow: {
-      //   "3xl": "rgba(0, 0, 0, 0.35) -2px -0.5px 15px -2px;",
-      // },
+      spacing: {
+        "fit-screen": "calc(100vh - 260px)",
+        "fit-screen-md": "calc(100vh - 180px)",
+      },
     },
   },
   plugins: [],

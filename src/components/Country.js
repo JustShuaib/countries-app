@@ -8,7 +8,7 @@ const Country = ({ country }) => {
   }
 
   return (
-    <div className="min-h-full w-full cursor-pointer overflow-hidden rounded-lg bg-light-mode-element pb-2 shadow-md transition-transform duration-500 hover:-translate-y-2 dark:bg-dark-mode-element dark:text-white">
+    <div className="min-h-full w-full cursor-pointer overflow-hidden rounded-lg bg-light-mode-element pb-2 shadow-md dark:bg-dark-mode-element dark:text-white lg:transition-transform lg:duration-500 lg:hover:-translate-y-2">
       <Link to={`/${name}`}>
         <img
           src={flags.svg}
