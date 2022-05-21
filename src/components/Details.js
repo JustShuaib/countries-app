@@ -2,44 +2,50 @@ import { BsArrowLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
 const Details = ({ country, countries }) => {
   if (!country) return;
-  const name = country.name;
-  const tld = country.topLevelDomain;
-  const capital = country.capital;
-  const region = country.region;
-  const subregion = country.subregion;
-  const population = country.population;
-  const nativeName = country.nativeName;
-  const flag = country.flags.svg;
-  const language = country.languages;
+  const {
+    name,
+    topLevelDomain: tld,
+    capital,
+    region,
+    subregion,
+    population,
+    nativeName,
+    flags,
+    languages: language,
+    currencies: currency,
+    borders,
+  } = country;
+  // Languages
   let languages = [];
   for (let lang of language) {
     languages.push(lang["name"]);
   }
   languages = languages.join(", ");
-
-  const curr = country.currencies;
+  // Currencies
   let currencies = [];
-  for (let currency of curr) {
-    currencies.push(currency["name"]);
+  for (let curr of currency) {
+    currencies.push(curr["name"]);
   }
   currencies = currencies.join(", ");
 
-  function getBorder(text) {
-    const coun = countries.find((co) => co.alpha3Code === text);
-    return coun && coun.name;
+  let countryBorders = [];
+  if (borders) {
+    countryBorders = borders.map((border, index) => (
+      <li>
+        <Link
+          to={`/${getBorder(border)}`}
+          key={index}
+          className="rounded bg-light-mode-element py-1.5 px-3 text-center shadow-md dark:bg-dark-mode-element"
+        >
+          {getBorder(border)}
+        </Link>
+      </li>
+    ));
   }
 
-  let borders = country.borders;
-  if (borders) {
-    borders = borders.map((border, index) => (
-      <Link
-        to={`/${getBorder(border)}`}
-        key={index}
-        className="rounded bg-light-mode-element py-1.5 px-3 text-center shadow-md dark:bg-dark-mode-element"
-      >
-        {getBorder(border)}
-      </Link>
-    ));
+  function getBorder(text) {
+    const borders = countries.find((border) => border.alpha3Code === text);
+    return borders && borders.name;
   }
 
   function formatPopulation(population) {
@@ -47,20 +53,20 @@ const Details = ({ country, countries }) => {
   }
 
   return (
-    <>
+    <main>
       <Link
         to="/"
-        className="w-28 my-10 ml-6 flex items-center rounded-md bg-white py-2 px-6 shadow-2xl dark:bg-dark-mode-element dark:text-white"
+        className="my-10 ml-6 flex w-28 items-center rounded-md bg-white py-2 px-6 shadow-2xl dark:bg-dark-mode-element dark:text-white"
       >
         <BsArrowLeft className="mr-4" />
         Back
       </Link>
 
-      <main className="grid gap-10 lg:gap-x-24 px-6 dark:text-white lg:grid-cols-2 lg:px-20">
-        <img src={flag} alt="country flag" />
-        <div className="grid lg:grid-cols-2 items-start lg:grid-rows-2">
+      <div className="grid gap-10 px-6 dark:text-white lg:grid-cols-2 lg:gap-x-24 lg:px-20">
+        <img src={flags.svg} alt="country flag" />
+        <div className="grid items-start lg:grid-cols-2 lg:grid-rows-2">
           <section className="mb-10 space-y-3 px-8">
-            <h2 className="mt-8 mb-6 text-xl font-bold lg:text-2xl">{name}</h2>
+            <h1 className="mt-8 mb-6 text-xl font-bold lg:text-2xl">{name}</h1>
             <p>
               <b>Native Name:</b> <span>{nativeName}</span>
             </p>
@@ -89,18 +95,16 @@ const Details = ({ country, countries }) => {
             </p>
           </div>
           {borders && (
-            <section className="mb-5 flex flex-col px-8 lg:col-span-2 lg:h-8 lg:flex-row ">
-              <h4 className="mb-4 text-lg font-bold lg:mr-4 lg:mb-0">
+            <section className="mb-10 flex flex-col pl-8 md:mb-0 lg:col-span-2  lg:flex-row ">
+              <h2 className="mb-4 text-lg font-bold lg:mr-4 lg:mb-0">
                 Border Countries:
-              </h4>
-              <ul className="flex justify-evenly lg:justify-start flex-wrap gap-3">
-                {borders}
-              </ul>
+              </h2>
+              <ul className="flex flex-wrap gap-4 gap-y-6">{countryBorders}</ul>
             </section>
           )}
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 };
 
