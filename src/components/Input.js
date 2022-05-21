@@ -4,11 +4,12 @@ import { MdKeyboardArrowDown, MdClear } from "react-icons/md";
 const Input = (props) => {
   const {
     handleDisplayRegion,
-    handleClick,
+    handleSearch,
     clearSearchInput,
     value,
     handleChange,
   } = props;
+
   function handleFilterToggle() {
     const regions = document.getElementById("regions");
     regions.classList.toggle("opacity-0");
@@ -22,7 +23,7 @@ const Input = (props) => {
           <input
             onChange={handleChange}
             value={value}
-            onKeyUp={handleClick}
+            onKeyUp={handleSearch}
             id="search"
             placeholder="Search for a country..."
             className="w-full px-3 py-2 outline-none dark:bg-inherit dark:text-white dark:placeholder:text-white"

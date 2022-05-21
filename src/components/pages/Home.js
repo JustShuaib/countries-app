@@ -3,18 +3,16 @@ import CountryContainer from "../CountryContainer";
 import Input from "../Input";
 const Home = () => {
   const [isPending, setIsPending] = useState(true);
-  const [countries, setCountries] = useState(null);
-  let [filteredCountries, setFilteredCountries] = useState([]);
-  const [error, setError] = useState(null);
+  const [countries, setCountries] = useState([]);
+  const [error, setError] = useState(false);
   const [value, setValue] = useState("");
+  let [filteredCountries, setFilteredCountries] = useState([]);
 
   useEffect(() => {
     async function getData() {
       try {
         const response = await fetch("https://restcountries.com/v2/all");
-        if (!response.ok) {
-          throw new Error("Error, Could not fetch the data at that resource");
-        }
+        if (!response.ok) throw "Could not fetch countries";
         const data = await response.json();
         const usefulData = data.map((country) => {
           const { name, population, region, capital, flags } = country;
@@ -25,7 +23,8 @@ const Home = () => {
         setFilteredCountries(usefulData);
         setIsPending(false);
       } catch (error) {
-        setError(error.message);
+        setIsPending(false);
+        setError(true);
       }
     }
     getData();
@@ -35,15 +34,16 @@ const Home = () => {
     setValue(e.target.value);
   }
 
-  function handleClick(e) {
-    let tempCountries = [...countries];
+  function handleSearch(e) {
+    let tempCountries = [];
     let searchCountry = e.target.value;
     if (searchCountry.length > 0) {
-      tempCountries = tempCountries.filter((country) =>
+      tempCountries = countries.filter((country) =>
         country.name.toLowerCase().includes(searchCountry.toLowerCase())
       );
-      if (tempCountries.length === 0) return;
       setFilteredCountries(tempCountries);
+    } else {
+      setFilteredCountries(countries);
     }
   }
 
@@ -78,16 +78,15 @@ const Home = () => {
       <Input
         value={value}
         handleChange={handleChange}
-        handleClick={handleClick}
+        handleSearch={handleSearch}
         handleDisplayRegion={handleDisplayRegion}
         clearSearchInput={clearSearchInput}
       />
-      <CountryContainer filteredCountries={filteredCountries} />
-      {isPending && (
-        <div className="text-center text-2xl font-bold dark:text-white">
-          {error ? error : "Loading countries..."}
-        </div>
-      )}
+      <CountryContainer
+        filteredCountries={filteredCountries}
+        isPending={isPending}
+        error={error}
+      />
     </main>
   );
 };
