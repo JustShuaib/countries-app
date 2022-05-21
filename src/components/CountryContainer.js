@@ -3,13 +3,6 @@ import { v4 as idGenerator } from "uuid";
 import Country from "./Country";
 
 function CountryContainer({ filteredCountries, isPending, error }) {
-  if (filteredCountries.length === 0) {
-    return (
-      <p className="text-center text-2xl font-bold md:text-3xl">
-        No such country exists
-      </p>
-    );
-  }
   if (isPending) {
     return (
       <p className="text-center text-2xl font-bold md:text-3xl">
@@ -20,6 +13,12 @@ function CountryContainer({ filteredCountries, isPending, error }) {
     return (
       <p className="text-center text-2xl font-bold md:text-3xl">
         Failed to fetch countries
+      </p>
+    );
+  } else if (filteredCountries.length === 0) {
+    return (
+      <p className="text-center text-2xl font-bold md:text-3xl">
+        No such country exists
       </p>
     );
   }

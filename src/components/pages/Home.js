@@ -22,7 +22,7 @@ const Home = () => {
         setCountries(usefulData);
         setFilteredCountries(usefulData);
         setIsPending(false);
-      } catch (error) {
+      } catch {
         setIsPending(false);
         setError(true);
       }
