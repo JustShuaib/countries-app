@@ -22,6 +22,7 @@ const Home = () => {
         });
         setCountries(usefulData);
         setFilteredCountries(usefulData);
+        setRegionCountries({ text: "Filter by Region", country: usefulData });
         setIsPending(false);
       } catch {
         setIsPending(false);
@@ -62,6 +63,7 @@ const Home = () => {
       regionText.textContent = region;
       hideRegion();
       setValue("");
+      return;
     }
   }
 
@@ -77,7 +79,6 @@ const Home = () => {
       country.name.toLowerCase().includes(searchCountry.toLowerCase())
     );
     setFilteredCountries(tempCountries);
-    // console.log(tempCountries, filteredCountries);
   }
 
   function clearSearchInput(e) {
