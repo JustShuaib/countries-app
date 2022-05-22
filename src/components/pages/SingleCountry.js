@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Details from "../Details";
 
 function SingleCountry() {
-  const [countries, setCountries] = useState([]);
+  /*   const [countries, setCountries] = useState([]);
   const [error, setError] = useState(false);
   const [isPending, setIsPending] = useState(false);
 
@@ -27,8 +27,9 @@ function SingleCountry() {
   const countryID = param.country;
   const presentCountry = countries.find(
     (country) => country.name === countryID
-  );
-  return <Details country={presentCountry} countries={countries} />;
+  ); */
+  // return <Details country={presentCountry} countries={countries} />;
+  return <div>Single Country</div>;
 }
 
 export default SingleCountry;

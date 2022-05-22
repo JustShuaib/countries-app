@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { v4 as idGenerator } from "uuid";
 import CountryContainer from "../CountryContainer";
+import SingleCountry from "./SingleCountry";
 import Input from "../Input";
 const Home = () => {
   const [isPending, setIsPending] = useState(true);
@@ -8,6 +10,8 @@ const Home = () => {
   const [value, setValue] = useState("");
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [regionCountries, setRegionCountries] = useState({});
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [id, setId] = useState("");
 
   useEffect(() => {
     async function getData() {
@@ -17,7 +21,8 @@ const Home = () => {
         const data = await response.json();
         const usefulData = data.map((country) => {
           const { name, population, region, capital, flags } = country;
-          const usefulData = { name, population, region, capital, flags };
+          const id = idGenerator();
+          const usefulData = { name, population, region, capital, flags, id };
           return usefulData;
         });
         setCountries(usefulData);
@@ -89,7 +94,11 @@ const Home = () => {
     }
     e.preventDefault();
   }
-
+  function getId(id) {
+    return;
+  }
+  const presentCountry = countries.find((country) => country.name);
+  if (detailOpen) return <SingleCountry />;
   return (
     <main>
       <Input
@@ -103,6 +112,7 @@ const Home = () => {
         filteredCountries={filteredCountries}
         isPending={isPending}
         error={error}
+        setDetailOpen={setDetailOpen}
       />
     </main>
   );
