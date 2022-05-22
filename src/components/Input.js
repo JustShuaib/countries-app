@@ -38,7 +38,7 @@ const Input = (props) => {
           className="flex w-full items-center justify-between rounded p-2 px-4 font-semibold md:p-4"
           onClick={handleFilterToggle}
         >
-          <span>Filter by Region</span>
+          <span id="region-text">Filter by Region</span>
           <MdKeyboardArrowDown className="text-xl" />
         </button>
         <div

@@ -30,47 +30,55 @@ const Home = () => {
     getData();
   }, []);
 
+  const hideRegion = () => {
+    const regions = document.getElementById("regions");
+    regions.classList.add("opacity-0");
+  };
+
   function handleChange(e) {
     setValue(e.target.value);
   }
-
-  function handleSearch(e) {
-    let tempCountries = [];
-    let searchCountry = e.target.value;
-    if (searchCountry.length > 0) {
-      tempCountries = countries.filter((country) =>
-        country.name.toLowerCase().includes(searchCountry.toLowerCase())
-      );
-      setFilteredCountries(tempCountries);
-    } else {
-      setFilteredCountries(countries);
-    }
-  }
-
-  function clearSearchInput(e) {
-    if (value.length > 0) {
-      setValue("");
-      setFilteredCountries([...countries]);
-    }
-    e.preventDefault();
-  }
-
   function handleDisplayRegion(e) {
     const region = e.target.textContent;
+    const regionText = document.getElementById("region-text");
     const el = e.target.tagName;
     if (region === "All") {
       setFilteredCountries(countries);
+      regionText.textContent = "Filter by Region";
+      hideRegion();
       return;
     }
     if (el === "BUTTON") {
       const regionCountries = [];
       countries.forEach((country) => {
-        if (country.region === region) {
-          regionCountries.push(country);
-        }
+        if (country.region === region) regionCountries.push(country);
       });
       setFilteredCountries(regionCountries);
+      regionText.textContent = region;
+      hideRegion();
     }
+  }
+
+  function handleSearch(e) {
+    let searchCountry = e.target.value;
+    if (searchCountry.length === 0) {
+      setFilteredCountries(countries);
+      document.getElementById("region-text").textContent = "Filter by Region";
+      return;
+    }
+    const tempCountries = filteredCountries.filter((country) =>
+      country.name.toLowerCase().includes(searchCountry.toLowerCase())
+    );
+    setFilteredCountries(tempCountries);
+  }
+
+  function clearSearchInput(e) {
+    if (value.length > 0) {
+      setValue("");
+      document.getElementById("region-text").textContent = "Filter by Region";
+      setFilteredCountries(countries);
+    }
+    e.preventDefault();
   }
 
   return (

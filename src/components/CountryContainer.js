@@ -23,7 +23,7 @@ function CountryContainer({ filteredCountries, isPending, error }) {
     );
   }
   return (
-    <div className="mx-auto grid max-h-fit-screen w-11/12 place-items-center gap-12 overflow-y-scroll px-6 md:max-h-fit-screen-md md:grid-cols-2 lg:w-full lg:grid-cols-4 lg:px-12">
+    <div className="mx-auto grid max-h-fit-screen w-11/12 place-items-center gap-12 overflow-y-scroll px-6 pb-8 md:max-h-fit-screen-md md:grid-cols-2 lg:w-full lg:grid-cols-4 lg:px-12">
       {filteredCountries.map((country) => (
         <Country key={idGenerator()} country={country} />
       ))}
