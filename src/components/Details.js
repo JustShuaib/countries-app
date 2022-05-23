@@ -1,6 +1,6 @@
 import { BsArrowLeft } from "react-icons/bs";
-import { Link } from "react-router-dom";
-const Details = ({ country, countries }) => {
+import Navbar from "./Navbar";
+const Details = ({ country, countries, setDetailOpen, setId }) => {
   if (!country) return;
   const {
     name,
@@ -30,22 +30,20 @@ const Details = ({ country, countries }) => {
 
   let countryBorders = [];
   if (borders) {
-    countryBorders = borders.map((border, index) => (
-      <li>
-        <Link
-          to={`/${getBorder(border)}`}
-          key={index}
+    countryBorders = borders.map((border) => (
+      <li key={border}>
+        <button
           className="rounded bg-light-mode-element py-1.5 px-3 text-center shadow-md dark:bg-dark-mode-element"
+          onClick={() => setId(getBorder(border).id)}
         >
-          {getBorder(border)}
-        </Link>
+          {getBorder(border).name}
+        </button>
       </li>
     ));
   }
 
   function getBorder(text) {
-    const borders = countries.find((border) => border.alpha3Code === text);
-    return borders && borders.name;
+    return countries.find((border) => border.alpha3Code === text);
   }
 
   function formatPopulation(population) {
@@ -54,13 +52,14 @@ const Details = ({ country, countries }) => {
 
   return (
     <main>
-      <Link
-        to="/"
+      <Navbar />
+      <button
+        onClick={() => setDetailOpen(false)}
         className="my-10 ml-6 flex w-28 items-center rounded-md bg-white py-2 px-6 shadow-2xl dark:bg-dark-mode-element dark:text-white"
       >
         <BsArrowLeft className="mr-4" />
         Back
-      </Link>
+      </button>
 
       <div className="grid gap-10 px-6 dark:text-white lg:grid-cols-2 lg:gap-x-24 lg:px-20">
         <img src={flags.svg} alt="country flag" />
@@ -94,14 +93,17 @@ const Details = ({ country, countries }) => {
               <b>Languages:</b> <span>{languages}</span>
             </p>
           </div>
-          {borders && (
-            <section className="mb-10 flex flex-col pl-8 md:mb-0 lg:col-span-2  lg:flex-row ">
-              <h2 className="mb-4 text-lg font-bold lg:mr-4 lg:mb-0">
-                Border Countries:
-              </h2>
+
+          <section className="mb-10 flex flex-col pl-8 md:mb-0 lg:col-span-2  lg:flex-row ">
+            <h2 className="mb-4 text-lg font-bold lg:mr-4 lg:mb-0">
+              Border Countries:
+            </h2>
+            {borders ? (
               <ul className="flex flex-wrap gap-4 gap-y-6">{countryBorders}</ul>
-            </section>
-          )}
+            ) : (
+              <p className="text-lg font-semibold">No border countries</p>
+            )}
+          </section>
         </div>
       </div>
     </main>

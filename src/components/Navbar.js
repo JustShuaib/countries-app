@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { MdOutlineDarkMode } from "react-icons/md";
+import { FiSun, FiMoon } from "react-icons/fi";
 const Navbar = () => {
   const [darkModeEnabled, setdarkModeEnabled] = useState(false);
 
   function handleModeToggle() {
-    const page = document.documentElement;
-    page.classList.toggle("dark");
+    document.documentElement.classList.toggle("dark");
     setdarkModeEnabled(!darkModeEnabled);
   }
 
@@ -14,10 +13,10 @@ const Navbar = () => {
       <p className="md:text-lg">Where in the world?</p>
       <button
         type="button"
-        className="flex items-center font-semibold md:gap-x-2"
+        className="flex items-center gap-x-2 font-semibold"
         onClick={handleModeToggle}
       >
-        <MdOutlineDarkMode />
+        {darkModeEnabled ? <FiSun /> : <FiMoon />}
         <span> {darkModeEnabled ? "Light" : "Dark"} Mode</span>
       </button>
     </nav>

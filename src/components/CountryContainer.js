@@ -6,6 +6,7 @@ function CountryContainer({
   isPending,
   error,
   setDetailOpen,
+  setId,
 }) {
   if (isPending) {
     return (
@@ -27,10 +28,11 @@ function CountryContainer({
     );
   }
   return (
-    <div className="mx-auto grid max-h-fit-screen w-11/12 place-items-center gap-12 overflow-y-scroll px-6 pb-8 md:max-h-fit-screen-md md:grid-cols-2 lg:w-full lg:grid-cols-4 lg:px-12">
+    <div className="mx-auto grid w-11/12 place-items-center gap-12 px-6 pb-8 md:grid-cols-2 lg:max-h-fit-screen-md lg:w-full lg:grid-cols-4 lg:overflow-y-scroll lg:px-12">
       {filteredCountries.map((country) => (
         <Country
           key={country.id}
+          setId={setId}
           country={country}
           setDetailOpen={setDetailOpen}
         />

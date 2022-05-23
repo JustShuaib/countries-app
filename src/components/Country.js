@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
-
-const Country = ({ country, setDetailOpen }) => {
+const Country = ({ country, setDetailOpen, setId }) => {
   const { name, capital, region, population, flags } = country;
 
   function formatPopulation(population) {
@@ -10,7 +8,10 @@ const Country = ({ country, setDetailOpen }) => {
   return (
     <div
       className="min-h-full w-full cursor-pointer overflow-hidden rounded-lg bg-light-mode-element pb-2 shadow-md dark:bg-dark-mode-element dark:text-white lg:transition-transform lg:duration-500 lg:hover:-translate-y-2"
-      onClick={() => setDetailOpen(true)}
+      onClick={() => {
+        setDetailOpen(true);
+        setId(country.id);
+      }}
     >
       <img
         src={flags.svg}
