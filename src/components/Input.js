@@ -42,18 +42,30 @@ const Input = (props) => {
           <span id="region-text">{region}</span>
           <MdKeyboardArrowDown className="text-xl" />
         </button>
-        <div
+        <ul
           className="invisible absolute -bottom-52 left-0 z-10 grid w-full justify-start gap-y-1 rounded-md bg-white p-4 text-left shadow dark:bg-dark-mode-element dark:text-white"
           id="regions"
           onClick={handleDisplayRegion}
         >
-          <button className="text-left">All</button>
-          <button className="text-left">Africa</button>
-          <button className="text-left">Americas</button>
-          <button className="text-left">Asia</button>
-          <button className="text-left">Europe</button>
-          <button className="text-left">Oceania</button>
-        </div>
+          <li>
+            <button className="text-left">All</button>
+          </li>
+          <li>
+            <button className="text-left">Africa</button>
+          </li>
+          <li>
+            <button className="text-left">Americas</button>
+          </li>
+          <li>
+            <button className="text-left">Asia</button>
+          </li>
+          <li>
+            <button className="text-left">Europe</button>
+          </li>
+          <li>
+            <button className="text-left">Oceania</button>
+          </li>
+        </ul>
       </div>
     </div>
   );

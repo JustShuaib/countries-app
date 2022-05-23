@@ -78,7 +78,7 @@ const Home = () => {
     const region = e.target.textContent;
     const regionText = document.getElementById("region-text");
     const el = e.target.tagName;
-    console.log(regionText);
+    console.log(e.target);
     if (region === "All") {
       setFilteredCountries(countries);
       setRegionCountries({ text: "Filter by Region", country: countries });
