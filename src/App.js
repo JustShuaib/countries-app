@@ -67,7 +67,7 @@ const Home = () => {
   }, []);
 
   const hideRegion = () => {
-    document.getElementById("regions").classList.add("opacity-0");
+    document.getElementById("regions").classList.add("invisible");
   };
 
   function handleChange(e) {
@@ -78,10 +78,11 @@ const Home = () => {
     const region = e.target.textContent;
     const regionText = document.getElementById("region-text");
     const el = e.target.tagName;
+    console.log(regionText);
     if (region === "All") {
       setFilteredCountries(countries);
       setRegionCountries({ text: "Filter by Region", country: countries });
-      regionText.textContent = "Filter by Region";
+      regionText.textContent = regionCountries.text;
       hideRegion();
       setValue("");
       return;
@@ -139,6 +140,7 @@ const Home = () => {
       <Navbar />
       <Input
         value={value}
+        region={regionCountries.text}
         handleChange={handleChange}
         handleSearch={handleSearch}
         handleDisplayRegion={handleDisplayRegion}

@@ -8,11 +8,12 @@ const Input = (props) => {
     clearSearchInput,
     value,
     handleChange,
+    region,
   } = props;
 
   function handleFilterToggle() {
     const regions = document.getElementById("regions");
-    regions.classList.toggle("opacity-0");
+    regions.classList.toggle("invisible");
   }
 
   return (
@@ -38,11 +39,11 @@ const Input = (props) => {
           className="flex w-full items-center justify-between rounded p-2 px-4 font-semibold md:p-4"
           onClick={handleFilterToggle}
         >
-          <span id="region-text">Filter by Region</span>
+          <span id="region-text">{region}</span>
           <MdKeyboardArrowDown className="text-xl" />
         </button>
         <div
-          className="absolute -bottom-52 left-0 z-10 grid w-full justify-start gap-y-1 rounded-md bg-white p-4 text-left opacity-0 shadow dark:bg-dark-mode-element dark:text-white"
+          className="invisible absolute -bottom-52 left-0 z-10 grid w-full justify-start gap-y-1 rounded-md bg-white p-4 text-left shadow dark:bg-dark-mode-element dark:text-white"
           id="regions"
           onClick={handleDisplayRegion}
         >
