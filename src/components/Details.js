@@ -46,10 +46,6 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
     return countries.find((border) => border.alpha3Code === text);
   }
 
-  function formatPopulation(population) {
-    return population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-
   return (
     <main>
       <Navbar />
@@ -70,7 +66,7 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
               <b>Native Name:</b> <span>{nativeName}</span>
             </p>
             <p>
-              <b>Population: </b> <span>{formatPopulation(population)}</span>
+              <b>Population: </b> <span>{population.toLocaleString()}</span>
             </p>
             <p>
               <b>Region:</b> <span>{region}</span>

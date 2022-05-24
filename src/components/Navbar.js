@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <nav className="sticky left-0 top-0 z-20 flex items-center justify-between bg-white p-6 font-bold shadow dark:bg-dark-mode-element dark:text-white lg:px-10">
-      <p className="md:text-lg">Where in the world?</p>
+      <h1 className="md:text-lg">Where in the world?</h1>
       <button
         type="button"
         className="flex items-center gap-x-2 font-semibold"
