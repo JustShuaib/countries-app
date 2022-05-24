@@ -17,7 +17,7 @@ const Input = (props) => {
   }
 
   return (
-    <div className="mx-auto my-6 w-11/12 lg:flex lg:items-center lg:justify-between">
+    <div className="mx-auto my-6 px-10 lg:flex lg:items-center lg:justify-between lg:px-16">
       <form className="mb-10 flex items-center rounded-md bg-white px-3 py-2 text-light-mode-input shadow dark:bg-dark-mode-element lg:mb-0 lg:w-5/12">
         <AiOutlineSearch className="mx-4 text-2xl dark:text-white" />
         <label htmlFor="search" className="w-full dark:bg-dark-mode-element">

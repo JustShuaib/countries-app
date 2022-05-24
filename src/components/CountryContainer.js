@@ -29,7 +29,7 @@ function CountryContainer({
   }
   return (
     <div
-      className="mx-auto grid w-11/12 place-items-center gap-12 px-6 pb-8 md:grid-cols-2 lg:max-h-fit-screen-md lg:w-full lg:grid-cols-4 lg:overflow-y-scroll lg:px-12"
+      className="mx-auto grid place-items-center gap-12 px-10 pb-8 md:grid-cols-2 lg:max-h-fit-screen-md lg:w-full lg:grid-cols-4 lg:overflow-y-scroll lg:pl-16 lg:pr-12"
       tabIndex="0"
     >
       {filteredCountries.map((country) => (
