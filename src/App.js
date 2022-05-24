@@ -125,34 +125,36 @@ const Home = () => {
 
   const presentCountry = countries.find((country) => country.id === id);
 
-  if (detailOpen)
-    return (
-      <Details
-        country={presentCountry}
-        countries={countries}
-        setDetailOpen={setDetailOpen}
-        setId={setId}
-      />
-    );
   return (
-    <main>
+    <>
       <Navbar />
-      <Input
-        value={value}
-        region={regionCountries.text}
-        handleChange={handleChange}
-        handleSearch={handleSearch}
-        handleDisplayRegion={handleDisplayRegion}
-        clearSearchInput={clearSearchInput}
-      />
-      <CountryContainer
-        filteredCountries={filteredCountries}
-        isPending={isPending}
-        error={error}
-        setDetailOpen={setDetailOpen}
-        setId={setId}
-      />
-    </main>
+      {detailOpen ? (
+        <Details
+          country={presentCountry}
+          countries={countries}
+          setDetailOpen={setDetailOpen}
+          setId={setId}
+        />
+      ) : (
+        <main>
+          <Input
+            value={value}
+            region={regionCountries.text}
+            handleChange={handleChange}
+            handleSearch={handleSearch}
+            handleDisplayRegion={handleDisplayRegion}
+            clearSearchInput={clearSearchInput}
+          />
+          <CountryContainer
+            filteredCountries={filteredCountries}
+            isPending={isPending}
+            error={error}
+            setDetailOpen={setDetailOpen}
+            setId={setId}
+          />
+        </main>
+      )}
+    </>
   );
 };
 

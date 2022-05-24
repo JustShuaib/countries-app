@@ -1,5 +1,4 @@
 import { BsArrowLeft } from "react-icons/bs";
-import Navbar from "./Navbar";
 const Details = ({ country, countries, setDetailOpen, setId }) => {
   if (!country) return;
   const {
@@ -48,7 +47,6 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
 
   return (
     <main>
-      <Navbar />
       <button
         onClick={() => setDetailOpen(false)}
         className="my-10 ml-6 flex w-28 items-center rounded-md bg-white py-2 px-6 shadow-2xl dark:bg-dark-mode-element dark:text-white"
