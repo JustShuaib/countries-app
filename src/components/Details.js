@@ -56,7 +56,7 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
       </button>
 
       <div className="grid gap-10 px-6 dark:text-white lg:grid-cols-2 lg:gap-x-24 lg:px-20">
-        <img src={flags.svg} alt="country flag" />
+        <img src={flags.svg} alt={`${name}'s flag`} />
         <div className="grid items-start lg:grid-cols-2 lg:grid-rows-2">
           <section className="mb-10 space-y-3 px-8">
             <h1 className="mt-8 mb-6 text-xl font-bold lg:text-2xl">{name}</h1>

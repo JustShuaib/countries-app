@@ -31,7 +31,9 @@ const Input = (props) => {
           />
         </label>
         <button aria-label="clear search" onClick={clearSearchInput}>
-          <MdClear className="text-2xl dark:text-light-mode-element" />
+          {value.length > 0 && (
+            <MdClear className="text-2xl dark:text-light-mode-element" />
+          )}
         </button>
       </form>
       <div className="relative w-7/12 rounded bg-light-mode-element shadow dark:bg-dark-mode-element dark:text-white lg:w-44">
