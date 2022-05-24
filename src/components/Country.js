@@ -28,7 +28,8 @@ const Country = ({ country, setDetailOpen, setId }) => {
           <strong>Region: </strong> <span>{region}</span>
         </p>
         <p>
-          <strong>Capital: </strong> <span>{capital}</span>
+          <strong>Capital: </strong>
+          <span>{capital ? capital : "No capital"}</span>
         </p>
       </section>
     </div>

@@ -79,7 +79,7 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
               <b>Sub Region:</b> <span>{subregion}</span>
             </p>
             <p>
-              <b>Capital:</b> <span>{capital}</span>
+              <b>Capital:</b> <span>{capital ? capital : "No capital"}</span>
             </p>
           </section>
           <div className="mb-10 space-y-3 px-8 lg:mt-24">
