@@ -36,9 +36,9 @@ const Input = (props) => {
           )}
         </button>
       </form>
-      <div className="relative w-7/12 rounded bg-light-mode-element shadow dark:bg-dark-mode-element dark:text-white lg:w-44">
+      <div className="relative w-8/12 rounded bg-light-mode-element shadow dark:bg-dark-mode-element dark:text-white lg:w-44">
         <button
-          className="flex w-full items-center justify-between rounded p-2 px-4 font-semibold md:p-4"
+          className="flex w-full items-center justify-between rounded p-3 font-semibold md:p-4"
           onClick={handleFilterToggle}
         >
           <span id="region-text">{region}</span>

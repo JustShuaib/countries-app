@@ -9,7 +9,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="sticky left-0 top-0 z-20 flex items-center justify-between bg-white p-6 px-10 font-bold shadow dark:bg-dark-mode-element dark:text-white lg:px-16">
+    <nav className="sticky left-0 top-0 z-20 flex items-center justify-between bg-white p-6 px-10 text-sm font-bold shadow dark:bg-dark-mode-element dark:text-white sm:text-base lg:px-16">
       <h1 className="md:text-lg">Where in the world?</h1>
       <button
         type="button"

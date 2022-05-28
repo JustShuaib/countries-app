@@ -16,10 +16,12 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
   } = country;
   // Languages
   let languages = [];
-  for (let lang of language) {
-    languages.push(lang["name"]);
-  }
-  languages = languages.join(", ");
+  if (language) {
+    for (let lang of language) {
+      languages.push(lang["name"]);
+    }
+    languages = languages.join(", ");
+  } else languages = "No language";
   // Currencies
   let currencies = [];
   if (currency) {
