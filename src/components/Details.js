@@ -22,10 +22,12 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
   languages = languages.join(", ");
   // Currencies
   let currencies = [];
-  for (let curr of currency) {
-    currencies.push(curr["name"]);
-  }
-  currencies = currencies.join(", ");
+  if (currency) {
+    for (let curr of currency) {
+      currencies.push(curr["name"]);
+    }
+    currencies = currencies.join(", ");
+  } else currencies = "No currency";
 
   let countryBorders = [];
   if (borders) {
