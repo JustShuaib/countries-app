@@ -36,7 +36,7 @@ const Input = (props) => {
           )}
         </button>
       </form>
-      <div className="relative w-8/12 rounded bg-light-mode-element shadow dark:bg-dark-mode-element dark:text-white lg:w-44">
+      <div className="relative w-8/12 rounded bg-light-mode-element shadow dark:bg-dark-mode-element dark:text-white lg:w-52">
         <button
           className="flex w-full items-center justify-between rounded p-3 font-semibold md:p-4"
           onClick={handleFilterToggle}

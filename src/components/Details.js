@@ -50,19 +50,19 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
   }
 
   return (
-    <main>
+    <main className="bg-white pt-10">
       <button
         onClick={() => setDetailOpen(false)}
-        className="my-10 ml-6 flex w-28 items-center rounded-md bg-white py-2 px-6 shadow-2xl dark:bg-dark-mode-element dark:text-white"
+        className="ml-6 mb-10 flex w-28 items-center rounded-md bg-white py-2 px-6 shadow-lg dark:bg-dark-mode-element dark:text-white lg:mb-20 lg:ml-16"
       >
         <BsArrowLeft className="mr-4" />
         Back
       </button>
 
-      <div className="grid gap-10 px-6 dark:text-white lg:grid-cols-2 lg:gap-x-24 lg:px-20">
+      <div className="grid gap-10 px-8 dark:text-white lg:grid-cols-2 lg:gap-x-32 lg:px-16">
         <img src={flags.svg} alt={`${name}'s flag`} />
         <div className="grid items-start lg:grid-cols-2 lg:grid-rows-2">
-          <section className="mb-10 space-y-3 px-8">
+          <section className="mb-10 space-y-3">
             <h1 className="mt-8 mb-6 text-xl font-bold lg:text-2xl">{name}</h1>
             <p>
               <b>Native Name:</b> <span>{nativeName}</span>
@@ -80,7 +80,7 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
               <b>Capital:</b> <span>{capital ? capital : "No capital"}</span>
             </p>
           </section>
-          <div className="mb-10 space-y-3 px-8 lg:mt-24">
+          <div className="mb-10 space-y-3 lg:mt-24">
             <p>
               <b>Top Level Domain:</b> <span>{tld}</span>
             </p>
@@ -92,7 +92,7 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
             </p>
           </div>
 
-          <section className="mb-10 flex flex-col pl-8 md:mb-0 lg:col-span-2  lg:flex-row ">
+          <section className="mb-10 flex flex-col md:mb-0 lg:col-span-2 lg:flex-row ">
             <h2 className="mb-4 text-lg font-bold lg:mr-4 lg:mb-0">
               Border Countries:
             </h2>
