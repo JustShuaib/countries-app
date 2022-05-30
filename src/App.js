@@ -66,9 +66,9 @@ const Home = () => {
     getData();
   }, []);
 
-  const hideRegion = () => {
+  function hideRegion() {
     document.getElementById("regions").classList.add("invisible");
-  };
+  }
 
   function handleChange(e) {
     setValue(e.target.value);
