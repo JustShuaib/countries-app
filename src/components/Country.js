@@ -11,7 +11,7 @@ const Country = ({ country, setDetailOpen, setId }) => {
     >
       <img
         src={flags.svg}
-        className="w-full object-cover lg:h-48"
+        className="h-32 w-full object-cover lg:h-48"
         alt={`${name}'s flag`}
       />
       <section className="mt-4 mb-8 space-y-2 px-4">
