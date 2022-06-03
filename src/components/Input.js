@@ -10,6 +10,7 @@ const Input = (props) => {
     handleChange,
     region,
   } = props;
+  console.log("input is rendering");
 
   function handleFilterToggle() {
     const regions = document.getElementById("regions");

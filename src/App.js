@@ -6,6 +6,7 @@ import Input from "./components/Input";
 import Navbar from "./components/Navbar";
 
 const Home = () => {
+  console.log("App is rendering");
   const [isPending, setIsPending] = useState(true);
   const [countries, setCountries] = useState([]);
   const [error, setError] = useState(false);

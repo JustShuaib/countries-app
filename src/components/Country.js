@@ -1,5 +1,6 @@
 const Country = ({ country, setDetailOpen, setId }) => {
   const { name, capital, region, population, flags } = country;
+  console.log("country is rendering");
 
   return (
     <div
