@@ -6,7 +6,6 @@ import Input from "./components/Input";
 import Navbar from "./components/Navbar";
 
 const Home = () => {
-  console.log("App is rendering");
   const [isPending, setIsPending] = useState(true);
   const [countries, setCountries] = useState([]);
   const [error, setError] = useState(false);
@@ -75,7 +74,7 @@ const Home = () => {
     setValue(e.target.value);
   }
 
-  function handleDisplayRegion(e) {
+  /*   function handleDisplayRegion(e) {
     const region = e.target.textContent;
     const regionText = document.getElementById("region-text");
     const el = e.target.tagName;
@@ -122,10 +121,21 @@ const Home = () => {
       setFilteredCountries(countries);
     }
     e.preventDefault();
-  }
+  } */
 
   const presentCountry = countries.find((country) => country.id === id);
+  // /  function handleDisplayRegion(e) {
+  const handleSearch = () => {};
+  const handleDisplayRegion = (e) => {
+    const region = e.target.value;
+    console.log(region);
+  };
+  const clearSearchInput = () => {};
 
+  const uniqueRegions = [
+    ...new Set(countries.map((country) => country.region)),
+  ];
+  console.log(uniqueRegions);
   return (
     <>
       <Navbar />
@@ -137,23 +147,24 @@ const Home = () => {
           setId={setId}
         />
       ) : (
-        <main>
-          <Input
-            value={value}
-            region={regionCountries.text}
-            handleChange={handleChange}
-            handleSearch={handleSearch}
-            handleDisplayRegion={handleDisplayRegion}
-            clearSearchInput={clearSearchInput}
-          />
-          <CountryContainer
-            filteredCountries={filteredCountries}
-            isPending={isPending}
-            error={error}
-            setDetailOpen={setDetailOpen}
-            setId={setId}
-          />
-        </main>
+        // <main>
+        <Input
+          value={value}
+          uniqueRegions={uniqueRegions}
+          region={regionCountries.text}
+          handleChange={handleChange}
+          handleSearch={handleSearch}
+          handleDisplayRegion={handleDisplayRegion}
+          clearSearchInput={clearSearchInput}
+        />
+        //   <CountryContainer
+        //     filteredCountries={filteredCountries}
+        //     isPending={isPending}
+        //     error={error}
+        //     setDetailOpen={setDetailOpen}
+        //     setId={setId}
+        //   />
+        // </main>
       )}
     </>
   );

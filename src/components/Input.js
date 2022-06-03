@@ -9,8 +9,8 @@ const Input = (props) => {
     value,
     handleChange,
     region,
+    uniqueRegions,
   } = props;
-  console.log("input is rendering");
 
   function handleFilterToggle() {
     const regions = document.getElementById("regions");
@@ -39,6 +39,7 @@ const Input = (props) => {
       </form>
       <div className="relative w-8/12 rounded bg-light-mode-element shadow dark:bg-dark-mode-element dark:text-white lg:w-52">
         <button
+          type="button"
           className="flex w-full items-center justify-between rounded p-3 font-semibold md:p-4"
           onClick={handleFilterToggle}
         >
@@ -46,28 +47,22 @@ const Input = (props) => {
           <MdKeyboardArrowDown className="text-xl" />
         </button>
         <ul
-          className="invisible absolute -bottom-52 left-0 z-10 grid w-full justify-start gap-y-1 rounded-md bg-white p-4 text-left shadow dark:bg-dark-mode-element dark:text-white"
+          className="invisible absolute -bottom-72 left-0 z-20 grid w-full justify-start gap-y-1 rounded-md bg-white p-4 text-left shadow transition duration-1000 dark:bg-dark-mode-element dark:text-white"
           id="regions"
           onClick={handleDisplayRegion}
         >
           <li>
-            <button className="text-left">All</button>
+            <button className="text-left" value="" type="button">
+              All
+            </button>
           </li>
-          <li>
-            <button className="text-left">Africa</button>
-          </li>
-          <li>
-            <button className="text-left">Americas</button>
-          </li>
-          <li>
-            <button className="text-left">Asia</button>
-          </li>
-          <li>
-            <button className="text-left">Europe</button>
-          </li>
-          <li>
-            <button className="text-left">Oceania</button>
-          </li>
+          {uniqueRegions.map((region) => (
+            <li key={region}>
+              <button type="button" className="text-left" value={region}>
+                {region}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

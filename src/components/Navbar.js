@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FiSun, FiMoon } from "react-icons/fi";
 const Navbar = () => {
   const [darkModeEnabled, setdarkModeEnabled] = useState(false);
-  console.log("navbar is rendering");
 
   function handleModeToggle() {
     document.documentElement.classList.toggle("dark");

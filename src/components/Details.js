@@ -44,7 +44,6 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
       </li>
     ));
   }
-  console.log("details is rendering");
 
   function getBorder(text) {
     return countries.find((border) => border.alpha3Code === text);
