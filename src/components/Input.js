@@ -1,21 +1,21 @@
+import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { MdKeyboardArrowDown, MdClear } from "react-icons/md";
+import {
+  MdKeyboardArrowDown,
+  MdKeyboardArrowUp,
+  MdClear,
+} from "react-icons/md";
 
 const Input = (props) => {
   const {
     handleDisplayRegion,
     handleSearch,
     clearSearchInput,
-    value,
-    handleChange,
     region,
     uniqueRegions,
   } = props;
-
-  function handleFilterToggle() {
-    const regions = document.getElementById("regions");
-    regions.classList.toggle("invisible");
-  }
+  const [optionsOpen, setOptionsOpen] = useState(false);
+  const [input, setInput] = useState("");
 
   return (
     <div className="mx-auto my-6 px-10 lg:flex lg:items-center lg:justify-between lg:px-16">
@@ -23,8 +23,8 @@ const Input = (props) => {
         <AiOutlineSearch className="mx-4 text-2xl dark:text-white" />
         <label htmlFor="search" className="w-full dark:bg-dark-mode-element">
           <input
-            onChange={handleChange}
-            value={value}
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
             onKeyUp={handleSearch}
             id="search"
             placeholder="Search for a country..."
@@ -32,7 +32,7 @@ const Input = (props) => {
           />
         </label>
         <button aria-label="clear search" onClick={clearSearchInput}>
-          {value.length > 0 && (
+          {input.length > 0 && (
             <MdClear className="text-2xl dark:text-light-mode-element" />
           )}
         </button>
@@ -41,21 +41,22 @@ const Input = (props) => {
         <button
           type="button"
           className="flex w-full items-center justify-between rounded p-3 font-semibold md:p-4"
-          onClick={handleFilterToggle}
+          onClick={() => setOptionsOpen((prev) => !prev)}
         >
-          <span id="region-text">{region}</span>
-          <MdKeyboardArrowDown className="text-xl" />
+          <span id="region-text">{region}</span>{" "}
+          {optionsOpen ? (
+            <MdKeyboardArrowUp className="text-xl" />
+          ) : (
+            <MdKeyboardArrowDown className="text-xl" />
+          )}
         </button>
         <ul
-          className="invisible absolute -bottom-72 left-0 z-20 grid w-full justify-start gap-y-1 rounded-md bg-white p-4 text-left shadow transition duration-1000 dark:bg-dark-mode-element dark:text-white"
+          className={`absolute -bottom-72 left-0 z-20 grid w-full justify-start gap-y-1 rounded-md bg-white p-4 text-left shadow dark:bg-dark-mode-element dark:text-white ${
+            optionsOpen ? "visible" : "invisible"
+          }`}
           id="regions"
           onClick={handleDisplayRegion}
         >
-          <li>
-            <button className="text-left" value="" type="button">
-              All
-            </button>
-          </li>
           {uniqueRegions.map((region) => (
             <li key={region}>
               <button type="button" className="text-left" value={region}>
