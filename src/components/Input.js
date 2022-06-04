@@ -13,9 +13,11 @@ const Input = (props) => {
     clearSearchInput,
     region,
     uniqueRegions,
+    input,
+    setInput,
   } = props;
+
   const [optionsOpen, setOptionsOpen] = useState(false);
-  const [input, setInput] = useState("");
 
   return (
     <div className="mx-auto my-6 px-10 lg:flex lg:items-center lg:justify-between lg:px-16">

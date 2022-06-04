@@ -14,9 +14,6 @@ const App = () => {
   const [regionCountries, setRegionCountries] = useState({});
   const [detailOpen, setDetailOpen] = useState(false);
   const [id, setId] = useState("");
-  // *********** FILTER COUNTRIES
-  // const [filterCountries, setFilterCountries] = useState([])
-  let filterCountries;
 
   useEffect(() => {
     async function getData() {
@@ -24,43 +21,8 @@ const App = () => {
         const response = await fetch("https://restcountries.com/v2/all");
         if (!response.ok) throw new Error("Could not fetch countries");
         const data = await response.json();
-        // const id = v4();
-        // const usefulData = data.map((country) => {
-        //   const {
-        //     name,
-        //     population,
-        //     region,
-        //     subregion,
-        //     topLevelDomain,
-        //     nativeName,
-        //     languages,
-        //     currencies,
-        //     borders,
-        //     capital,
-        //     flags,
-        //     alpha3Code,
-        //   } = country;
-        // const usefulData = {
-        //   name,
-        //   population,
-        //   region,
-        //   capital,
-        //   topLevelDomain,
-        //   subregion,
-        //   nativeName,
-        //   languages,
-        //   currencies,
-        //   borders,
-        //   flags,
-        //   id,
-        //   alpha3Code,
-        // };
-        // return usefulData;
-        // });
         const newData = data.map((country) => ({ ...country, id: v4() }));
-        console.log(newData);
         setCountries(newData);
-        // setCountries({ data, id });
         setFilteredCountries(newData);
         setRegionCountries({ text: "Filter by Region", country: newData });
         setIsPending(false);
@@ -75,11 +37,6 @@ const App = () => {
   function hideRegion() {
     document.getElementById("regions").classList.add("invisible");
   }
-
-  // function handleChange(e) {
-  //   setSearch(e.target.value);
-  //   console.log("This is change", e.target.value);
-  // }
 
   /*   function handleDisplayRegion(e) {
     const region = e.target.textContent;
@@ -120,24 +77,25 @@ const App = () => {
     );
     setFilteredCountries(tempCountries);
   }
+*/
+  const [input, setInput] = useState("");
 
-  function clearSearchInput(e) {
-    if (value.length > 0) {
-      setValue("");
+  const clearSearchInput = (e) => {
+    if (input.length > 0) {
+      setInput("");
       document.getElementById("region-text").textContent = "Filter by Region";
-      setFilteredCountries(countries);
+      setTestCountries(countries);
     }
     e.preventDefault();
-  } */
+  };
 
   const presentCountry = countries.find((country) => country.id === id);
-  // /  function handleDisplayRegion(e) {
+
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState("");
   const [testCountries, setTestCountries] = useState(countries);
-  filterCountries = countries;
 
-  function handleSearch(e) {
+  const handleSearch = (e) => {
     const te = e.target.value;
     setSearch(te.toLowerCase());
 
@@ -146,10 +104,9 @@ const App = () => {
         ? country.name.toLowerCase().includes(te) && country.region === region
         : country.name.toLowerCase().includes(te)
     );
-    console.log("text is " + te, "btn is " + region, filterCountries);
     setTestCountries(filterCountries);
-  }
-  function handleDisplayRegion(e) {
+  };
+  const handleDisplayRegion = (e) => {
     const reg = e.target.value;
     setRegion(reg);
     let filterCountries;
@@ -158,11 +115,8 @@ const App = () => {
         (country) =>
           country.name.toLowerCase().includes(search) && country.region === reg
       );
-    console.log("text is " + search, "btn is " + reg, filterCountries);
     setTestCountries(filterCountries);
-  }
-
-  const clearSearchInput = () => {};
+  };
 
   const uniqueRegions = [
     "All",
@@ -186,6 +140,8 @@ const App = () => {
             handleSearch={handleSearch}
             handleDisplayRegion={handleDisplayRegion}
             clearSearchInput={clearSearchInput}
+            input={input}
+            setInput={setInput}
           />
           <CountryContainer
             filteredCountries={search || region ? testCountries : countries}
