@@ -14,6 +14,8 @@ const App = () => {
   const [regionCountries, setRegionCountries] = useState({});
   const [detailOpen, setDetailOpen] = useState(false);
   const [id, setId] = useState("");
+  // *** TEST COUNTRIES ***
+  const [testCountries, setTestCountries] = useState([]);
 
   useEffect(() => {
     async function getData() {
@@ -23,6 +25,8 @@ const App = () => {
         const data = await response.json();
         const newData = data.map((country) => ({ ...country, id: v4() }));
         setCountries(newData);
+        // **** TEST COUNTRIES ****
+        setTestCountries(newData);
         setFilteredCountries(newData);
         setRegionCountries({ text: "Filter by Region", country: newData });
         setIsPending(false);
@@ -91,30 +95,52 @@ const App = () => {
 
   const presentCountry = countries.find((country) => country.id === id);
 
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const [region, setRegion] = useState("");
-  const [testCountries, setTestCountries] = useState(countries);
 
-  const handleSearch = (e) => {
-    const te = e.target.value.toLowerCase();
-    setSearch(te);
-    let filterCountries = countries.filter((country) =>
-      region
-        ? country.name.toLowerCase().includes(te) && country.region === region
-        : country.name.toLowerCase().includes(te)
+  const inputHandler = (regionInput = region, textInput = input) => {
+    const filterCountries = countries.filter(
+      (country) =>
+        country.name.toLowerCase().includes(textInput) &&
+        country.region === regionInput
     );
     setTestCountries(filterCountries);
+    // ******* REGIONS ********
+    // filterCountries = countries.filter(
+    //   (country) =>
+    //     country.name.toLowerCase().includes(input) && country.region === reg
+    // );
+    // setTestCountries(filterCountries);
   };
+  const handleSearch = () => {
+    // const te = e.target.value.toLowerCase();
+    // setSearch(te);
+    //  ********** FILTERING ******
+    inputHandler();
+    // let filterCountries = countries.filter((country) =>
+    //   region
+    //     ? country.name.toLowerCase().includes(input) &&
+    //       country.region === region
+    //     : country.name.toLowerCase().includes(input)
+    // );
+    // setTestCountries(filterCountries);
+  };
+
   const handleDisplayRegion = (e) => {
     const reg = e.target.value;
-    setRegion(reg);
-    let filterCountries;
-    if (reg !== "All" && e.target.tagName === "BUTTON")
-      filterCountries = countries.filter(
-        (country) =>
-          country.name.toLowerCase().includes(search) && country.region === reg
-      );
-    setTestCountries(filterCountries);
+    if (reg === "All") {
+      setTestCountries(countries);
+      setRegion("");
+    } else if (reg !== "All" && e.target.tagName === "BUTTON") {
+      inputHandler(reg);
+      setRegion(reg);
+      hideRegion();
+      // filterCountries = countries.filter(
+      //   (country) =>
+      //     country.name.toLowerCase().includes(input) && country.region === reg
+      // );
+      // setTestCountries(filterCountries);
+    }
   };
 
   const uniqueRegions = [
@@ -143,7 +169,7 @@ const App = () => {
             setInput={setInput}
           />
           <CountryContainer
-            filteredCountries={search || region ? testCountries : countries}
+            filteredCountries={testCountries}
             isPending={isPending}
             error={error}
             setDetailOpen={setDetailOpen}

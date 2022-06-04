@@ -18,16 +18,20 @@ const Input = (props) => {
   } = props;
 
   const [optionsOpen, setOptionsOpen] = useState(false);
-
+  const handleChange = (e) => {
+    setInput(e.target.value.toLowerCase());
+    handleSearch(e);
+  };
   return (
     <div className="mx-auto my-6 px-10 lg:flex lg:items-center lg:justify-between lg:px-16">
       <form className="mb-10 flex items-center rounded-md bg-white px-3 py-2 text-light-mode-input shadow dark:bg-dark-mode-element lg:mb-0 lg:w-5/12">
         <AiOutlineSearch className="mx-4 text-2xl dark:text-white" />
         <label htmlFor="search" className="w-full dark:bg-dark-mode-element">
           <input
-            onChange={(e) => setInput(e.target.value)}
+            onChange={handleChange}
+            // onChange={(e) => setInput(e.target.value)}
             value={input}
-            onKeyUp={handleSearch}
+            // onKeyUp={handleSearch}
             id="search"
             placeholder="Search for a country..."
             className="w-full px-3 py-2 outline-none dark:bg-inherit dark:text-white dark:placeholder:text-white"
