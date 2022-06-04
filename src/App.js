@@ -96,9 +96,8 @@ const App = () => {
   const [testCountries, setTestCountries] = useState(countries);
 
   const handleSearch = (e) => {
-    const te = e.target.value;
-    setSearch(te.toLowerCase());
-
+    const te = e.target.value.toLowerCase();
+    setSearch(te);
     let filterCountries = countries.filter((country) =>
       region
         ? country.name.toLowerCase().includes(te) && country.region === region
