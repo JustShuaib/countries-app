@@ -83,17 +83,6 @@ const App = () => {
   const [region, setRegion] = useState("");
   // ********** DETAILS
   const [optionsOpen, setOptionsOpen] = useState(false);
-  const clearSearchInput = (e) => {
-    if (input.length > 0) {
-      setInput("");
-      setRegion("");
-      setTestCountries(countries);
-    }
-    e.preventDefault();
-  };
-  const userInput = useRef();
-  const presentCountry = countries.find((country) => country.id === id);
-
   const inputHandler = (
     regionInput = region,
     textInput = userInput.current.value.toLowerCase()
@@ -113,6 +102,16 @@ const App = () => {
     // );
     // setTestCountries(filterCountries);
   };
+  const clearSearchInput = (e) => {
+    if (input.length > 0) {
+      setInput("");
+      inputHandler(region, "");
+    }
+    e.preventDefault();
+  };
+  const userInput = useRef();
+  const presentCountry = countries.find((country) => country.id === id);
+
   const handleSearch = () => {
     // const te = e.target.value.toLowerCase();
     // setSearch(te);
