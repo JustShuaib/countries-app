@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import {
   MdKeyboardArrowDown,
@@ -8,19 +7,20 @@ import {
 
 const Input = (props) => {
   const {
-    handleDisplayRegion,
-    handleSearch,
-    clearSearchInput,
+    onDisplayRegion,
+    onSearch,
+    clearInput,
     region,
-    uniqueRegions,
+    regions,
     input,
     setInput,
+    optionsOpen,
+    setOptionsOpen,
+    text,
   } = props;
-
-  const [optionsOpen, setOptionsOpen] = useState(false);
   const handleChange = (e) => {
     setInput(e.target.value.toLowerCase());
-    handleSearch(e);
+    onSearch();
   };
   return (
     <div className="mx-auto my-6 px-10 lg:flex lg:items-center lg:justify-between lg:px-16">
@@ -31,13 +31,14 @@ const Input = (props) => {
             onChange={handleChange}
             // onChange={(e) => setInput(e.target.value)}
             value={input}
+            ref={text}
             // onKeyUp={handleSearch}
             id="search"
             placeholder="Search for a country..."
             className="w-full px-3 py-2 outline-none dark:bg-inherit dark:text-white dark:placeholder:text-white"
           />
         </label>
-        <button aria-label="clear search" onClick={clearSearchInput}>
+        <button aria-label="clear search" onClick={clearInput}>
           {input.length > 0 && (
             <MdClear className="text-2xl dark:text-light-mode-element" />
           )}
@@ -49,7 +50,7 @@ const Input = (props) => {
           className="flex w-full items-center justify-between rounded p-3 font-semibold md:p-4"
           onClick={() => setOptionsOpen((prev) => !prev)}
         >
-          <span id="region-text">{region}</span>{" "}
+          <span id="region-text">{region || "Filter by Region"}</span>{" "}
           {optionsOpen ? (
             <MdKeyboardArrowUp className="text-xl" />
           ) : (
@@ -61,9 +62,9 @@ const Input = (props) => {
             optionsOpen ? "visible" : "invisible"
           }`}
           id="regions"
-          onClick={handleDisplayRegion}
+          onClick={onDisplayRegion}
         >
-          {uniqueRegions.map((region) => (
+          {regions.map((region) => (
             <li key={region}>
               <button type="button" className="text-left" value={region}>
                 {region}

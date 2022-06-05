@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
 import CountryContainer from "../src/components/CountryContainer";
 import Details from "./components/Details";
@@ -9,9 +9,7 @@ const App = () => {
   const [isPending, setIsPending] = useState(true);
   const [countries, setCountries] = useState([]);
   const [error, setError] = useState(false);
-  const [value, setValue] = useState("");
-  const [filteredCountries, setFilteredCountries] = useState([]);
-  const [regionCountries, setRegionCountries] = useState({});
+  // const [regionCountries, setRegionCountries] = useState({});
   const [detailOpen, setDetailOpen] = useState(false);
   const [id, setId] = useState("");
   // *** TEST COUNTRIES ***
@@ -27,8 +25,7 @@ const App = () => {
         setCountries(newData);
         // **** TEST COUNTRIES ****
         setTestCountries(newData);
-        setFilteredCountries(newData);
-        setRegionCountries({ text: "Filter by Region", country: newData });
+        // setRegionCountries({ text: "Filter by Region", country: newData });
         setIsPending(false);
       } catch {
         setIsPending(false);
@@ -83,26 +80,30 @@ const App = () => {
   }
 */
   const [input, setInput] = useState("");
-
+  const [region, setRegion] = useState("");
+  // ********** DETAILS
+  const [optionsOpen, setOptionsOpen] = useState(false);
   const clearSearchInput = (e) => {
     if (input.length > 0) {
       setInput("");
-      document.getElementById("region-text").textContent = "Filter by Region";
+      setRegion("");
       setTestCountries(countries);
     }
     e.preventDefault();
   };
-
+  const userInput = useRef();
   const presentCountry = countries.find((country) => country.id === id);
 
-  // const [search, setSearch] = useState("");
-  const [region, setRegion] = useState("");
-
-  const inputHandler = (regionInput = region, textInput = input) => {
-    const filterCountries = countries.filter(
-      (country) =>
-        country.name.toLowerCase().includes(textInput) &&
-        country.region === regionInput
+  const inputHandler = (
+    regionInput = region,
+    textInput = userInput.current.value.toLowerCase()
+  ) => {
+    console.log(regionInput, textInput);
+    const filterCountries = countries.filter((country) =>
+      regionInput.length > 0
+        ? country.name.toLowerCase().includes(textInput) &&
+          country.region === regionInput
+        : country.name.toLowerCase().includes(textInput)
     );
     setTestCountries(filterCountries);
     // ******* REGIONS ********
@@ -129,12 +130,16 @@ const App = () => {
   const handleDisplayRegion = (e) => {
     const reg = e.target.value;
     if (reg === "All") {
-      setTestCountries(countries);
+      // setTestCountries(countries);
       setRegion("");
-    } else if (reg !== "All" && e.target.tagName === "BUTTON") {
-      inputHandler(reg);
-      setRegion(reg);
+      inputHandler("");
       hideRegion();
+      setOptionsOpen(false);
+    } else if (reg !== "All" && e.target.tagName === "BUTTON") {
+      setRegion(reg);
+      inputHandler(reg);
+      hideRegion();
+      setOptionsOpen(false);
       // filterCountries = countries.filter(
       //   (country) =>
       //     country.name.toLowerCase().includes(input) && country.region === reg
@@ -160,13 +165,16 @@ const App = () => {
       ) : (
         <main>
           <Input
-            uniqueRegions={uniqueRegions}
-            region={regionCountries.text}
-            handleSearch={handleSearch}
-            handleDisplayRegion={handleDisplayRegion}
-            clearSearchInput={clearSearchInput}
+            region={region}
+            regions={uniqueRegions}
+            onSearch={handleSearch}
+            onDisplayRegion={handleDisplayRegion}
             input={input}
             setInput={setInput}
+            clearInput={clearSearchInput}
+            optionsOpen={optionsOpen}
+            setOptionsOpen={setOptionsOpen}
+            text={userInput}
           />
           <CountryContainer
             filteredCountries={testCountries}
