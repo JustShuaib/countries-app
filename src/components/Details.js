@@ -50,7 +50,7 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
   }
 
   return (
-    <main className="bg-white pt-10">
+    <main className="bg-white pt-10 dark:bg-dark-mode-bg">
       <button
         onClick={() => setDetailOpen(false)}
         className="ml-6 mb-10 flex w-28 items-center rounded-md bg-white py-2 px-6 shadow-lg dark:bg-dark-mode-element dark:text-white lg:mb-20 lg:ml-16"
@@ -92,7 +92,7 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
             </p>
           </div>
 
-          <section className="mb-10 flex flex-col md:mb-0 lg:col-span-2 lg:flex-row ">
+          <section className="mb-10 flex flex-col md:mb-0 lg:col-span-2 lg:flex-row">
             <h2 className="mb-4 text-lg font-bold lg:mr-4 lg:mb-0">
               Border Countries:
             </h2>
