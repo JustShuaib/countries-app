@@ -14,7 +14,7 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
     currencies: currency,
     borders,
   } = country;
-  // Languages
+
   let languages = [];
   if (language) {
     for (let lang of language) {
@@ -22,7 +22,7 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
     }
     languages = languages.join(", ");
   } else languages = "No language";
-  // Currencies
+
   let currencies = [];
   if (currency) {
     for (let curr of currency) {
@@ -30,6 +30,9 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
     }
     currencies = currencies.join(", ");
   } else currencies = "No currency";
+
+  const getBorder = (text) =>
+    countries.find((border) => border.alpha3Code === text);
 
   let countryBorders = [];
   if (borders) {
@@ -43,10 +46,6 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
         </button>
       </li>
     ));
-  }
-
-  function getBorder(text) {
-    return countries.find((border) => border.alpha3Code === text);
   }
 
   return (
@@ -77,12 +76,13 @@ const Details = ({ country, countries, setDetailOpen, setId }) => {
               <b>Sub Region:</b> <span>{subregion}</span>
             </p>
             <p>
-              <b>Capital:</b> <span>{capital ? capital : "No capital"}</span>
+              <b>Capital:</b> <span>{capital || "No capital"}</span>
             </p>
           </section>
           <div className="mb-10 space-y-3 lg:mt-24">
             <p>
-              <b>Top Level Domain:</b> <span>{tld}</span>
+              <b>Top Level Domain:</b>{" "}
+              <span>{tld || "No Top Level Domain"}</span>
             </p>
             <p>
               <b>Currencies:</b> <span>{currencies}</span>

@@ -6,12 +6,15 @@ import Input from "./components/Input";
 import Navbar from "./components/Navbar";
 
 const App = () => {
-  const [countries, setCountries] = useState([]);
-  const [testCountries, setTestCountries] = useState([]);
-  const [isPending, setIsPending] = useState(true);
-  const [error, setError] = useState(false);
-  const [detailOpen, setDetailOpen] = useState(false);
-  const [id, setId] = useState("");
+  const [countries, setCountries] = useState([]),
+    [filteredCountries, setFilteredCountries] = useState([]),
+    [id, setId] = useState(""),
+    [isPending, setIsPending] = useState(true),
+    [error, setError] = useState(false),
+    [detailOpen, setDetailOpen] = useState(false),
+    [optionsOpen, setOptionsOpen] = useState(false),
+    [region, setRegion] = useState(""),
+    [input, setInput] = useState("");
 
   useEffect(() => {
     async function getData() {
@@ -19,9 +22,9 @@ const App = () => {
         const response = await fetch("https://restcountries.com/v2/all");
         if (!response.ok) throw new Error("Could not fetch countries");
         const data = await response.json();
-        const newData = data.map((country) => ({ ...country, id: v4() }));
-        setCountries(newData);
-        setTestCountries(newData);
+        const countryList = data.map((country) => ({ ...country, id: v4() }));
+        setCountries(countryList);
+        setFilteredCountries(countryList);
         setIsPending(false);
       } catch {
         setIsPending(false);
@@ -31,53 +34,39 @@ const App = () => {
     getData();
   }, []);
 
-  function hideRegion() {
-    document.getElementById("regions").classList.add("invisible");
-  }
-  const [input, setInput] = useState("");
-  const [region, setRegion] = useState("");
-  const [optionsOpen, setOptionsOpen] = useState(false);
+  const userInput = useRef();
+  /**
+   * If there is a regionInput, filter the countries array by the textInput and regionInput, otherwise
+   * filter the countries array by only the textInput.
+   * @param [regionInput] - the region that the user has selected
+   * @param [textInput] - userInput.current.value.toLowerCase()
+   */
   const inputHandler = (
     regionInput = region,
     textInput = userInput.current.value.toLowerCase()
   ) => {
-    const filterCountries = countries.filter((country) =>
-      regionInput.length > 0
+    const newCountries = countries.filter((country) =>
+      regionInput
         ? country.name.toLowerCase().includes(textInput) &&
           country.region === regionInput
         : country.name.toLowerCase().includes(textInput)
     );
-    setTestCountries(filterCountries);
+    setFilteredCountries(newCountries);
   };
-  const clearSearchInput = (e) => {
-    if (input.length > 0) {
-      setInput("");
-      inputHandler(region, "");
-    }
-    e.preventDefault();
-  };
-  const userInput = useRef();
-  const presentCountry = countries.find((country) => country.id === id);
 
-  const handleSearch = () => {
-    inputHandler();
+  const regionHandler = (region, input, option = false) => {
+    setRegion(region);
+    inputHandler(input);
+    setOptionsOpen(option);
   };
 
   const handleDisplayRegion = (e) => {
     const reg = e.target.value;
-    if (reg === "All") {
-      setRegion("");
-      inputHandler("");
-      hideRegion();
-      setOptionsOpen(false);
-    } else if (reg !== "All" && e.target.tagName === "BUTTON") {
-      setRegion(reg);
-      inputHandler(reg);
-      hideRegion();
-      setOptionsOpen(false);
-    }
+    if (reg === "All") regionHandler("", "");
+    else if (e.target.tagName === "BUTTON") regionHandler(reg, reg);
   };
 
+  const presentCountry = countries.find((country) => country.id === id);
   const uniqueRegions = [
     "All",
     ...new Set(countries.map((country) => country.region)),
@@ -95,19 +84,18 @@ const App = () => {
       ) : (
         <main>
           <Input
-            region={region}
-            regions={uniqueRegions}
-            onSearch={handleSearch}
-            onDisplayRegion={handleDisplayRegion}
             input={input}
             setInput={setInput}
-            clearInput={clearSearchInput}
+            region={region}
+            regions={uniqueRegions}
+            onSearch={inputHandler}
+            onDisplayRegion={handleDisplayRegion}
             optionsOpen={optionsOpen}
             setOptionsOpen={setOptionsOpen}
             text={userInput}
           />
           <CountryContainer
-            filteredCountries={testCountries}
+            countries={filteredCountries}
             isPending={isPending}
             error={error}
             setDetailOpen={setDetailOpen}

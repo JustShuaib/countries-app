@@ -9,19 +9,28 @@ const Input = (props) => {
   const {
     onDisplayRegion,
     onSearch,
-    clearInput,
     region,
     regions,
-    input,
-    setInput,
     optionsOpen,
     setOptionsOpen,
     text,
+    input,
+    setInput,
   } = props;
+
+  const clearInput = (e) => {
+    if (input.length > 0) {
+      setInput("");
+      onSearch(region, "");
+    }
+    e.preventDefault();
+  };
+
   const handleChange = (e) => {
-    setInput(e.target.value.toLowerCase());
+    setInput(e.target.value);
     onSearch();
   };
+
   return (
     <div className="mx-auto my-6 px-10 lg:flex lg:items-center lg:justify-between lg:px-16">
       <form className="mb-10 flex items-center rounded-md bg-white px-3 py-2 text-light-mode-input shadow dark:bg-dark-mode-element lg:mb-0 lg:w-5/12">
@@ -29,10 +38,8 @@ const Input = (props) => {
         <label htmlFor="search" className="w-full dark:bg-dark-mode-element">
           <input
             onChange={handleChange}
-            // onChange={(e) => setInput(e.target.value)}
             value={input}
             ref={text}
-            // onKeyUp={handleSearch}
             id="search"
             placeholder="Search for a country..."
             className="w-full px-3 py-2 outline-none dark:bg-inherit dark:text-white dark:placeholder:text-white"
